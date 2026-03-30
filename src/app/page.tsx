@@ -40,47 +40,42 @@ const RECENT_TRANSACTIONS = [
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col gap-8 p-6">
+    <div className="mx-auto flex w-full max-w-[976px] flex-1 flex-col gap-8 p-6">
       {/* Total balance + actions */}
       <section className="space-y-4">
-        <h2 className="text-sm font-medium text-muted-foreground">Total balance</h2>
-        <p className="text-3xl font-bold tracking-tight">1.00 EUR</p>
+        <div className="space-y-0">
+           <p className="text-sm font-medium text-muted-foreground">Total balance</p>
+           <h2 className="text-3xl font-bold tracking-tight">98.00 EUR</h2>
+        </div>
         <div className="flex flex-wrap gap-2">
-          <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            Send
+          <Button size="sm" variant="default">
+            Send money
           </Button>
-          <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button size="sm" variant="secondary">
             Add money
           </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button size="sm" variant="outline" className="gap-1">
-                Request
-                <ChevronDown className="size-4" />
+              <Button size="sm" variant="secondary" className="gap-1">
+                Request money
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem>Request from bank account</DropdownMenuItem>
-              <DropdownMenuItem>Request from card</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+    </div>
       </section>
 
-      {/* Currency account cards */}
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {CURRENCY_ACCOUNTS.map((account) => (
-          <Card key={account.code} className="bg-muted/50">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <span className="text-lg" aria-hidden>{account.flag}</span>
-              <CardTitle className="text-base font-medium">{account.label}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-1">
-              <p className="text-xs text-muted-foreground">Account - {account.accountId}</p>
-              <p className="text-2xl font-bold">{account.balance}</p>
-            </CardContent>
-          </Card>
-        ))}
+      {/* Currency account cards — horizontal row, 12px gap, scroll when wider than container */}
+      <section className="min-w-0 w-full">
+        <div className="flex gap-3 overflow-x-auto overflow-y-hidden pb-1">
+          {CURRENCY_ACCOUNTS.map((account) => (
+            <Card key={account.code} className="bg-muted/50">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <span className="text-lg" aria-hidden>{account.flag}</span>
+                <CardTitle className="text-base font-medium">{account.label}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-1">
+                <p className="text-xs text-muted-foreground">Account - {account.accountId}</p>
+                <p className="text-2xl font-bold">{account.balance}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </section>
 
       {/* Recent transactions */}
