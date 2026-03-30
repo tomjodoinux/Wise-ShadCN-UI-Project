@@ -5,6 +5,17 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* Grey scale — primitives referenced in semantic tokens */
+  --color-grey-100: var(--primitive-grey-100);
+  --color-grey-200: var(--primitive-grey-200);
+  --color-grey-300: var(--primitive-grey-300);
+  --color-grey-400: var(--primitive-grey-400);
+  --color-grey-500: var(--primitive-grey-500);
+  --color-grey-600: var(--primitive-grey-600);
+  /* Brand green (3-stop ramp) */
+  --color-brand-green-100: var(--primitive-brand-green-100);
+  --color-brand-green-500: var(--primitive-brand-green-500);
+  --color-brand-green-700: var(--primitive-brand-green-700);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -48,84 +59,102 @@
 }
 
 /* ==========================================================================
-   DESIGNER NOTE: Theme variables (light mode)
-   All colours use HEX so you can copy values from Figma and paste here.
-   Key variables:
-   — --background / --foreground: page background and text
-   — --primary / --primary-foreground: primary buttons, links, badges (e.g. Wise green)
-   — --secondary, --muted, --accent: secondary UI surfaces
-   — --border, --input, --ring: borders and focus rings
-   — --radius: default border radius (buttons, cards, inputs)
-   — --sidebar-*: sidebar-specific colours
+   DESIGNER NOTE: Theme variables
+   — --primitive-grey-100 … 600: raw grey ramp (edit here to retheme)
+   — --primitive-brand-green-100/500/700: brand greens (Tailwind: brand-green-*)
+   — Semantic tokens (--background, --foreground, …) map primitives in :root / .dark
+   — Tailwind: bg-grey-100 … text-grey-600 via @theme
+   — Primary: fill green 500, label --button-solid-foreground (green 700)
+   — Secondary: light fill green 100, label green 700 | dark fill green 700, label green 500
+   — --destructive / charts: accent colours; --sidebar-* still map to greys
    ========================================================================== */
 :root {
   --radius: 0.625rem;
-  --background: #ffffff;
-  --foreground: #252525;
-  --card: #ffffff;
-  --card-foreground: #252525;
-  --popover: #ffffff;
-  --popover-foreground: #252525;
-  --primary: #343434;
-  --primary-foreground: #fafafa;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #343434;
-  --muted: #f5f5f5;
-  --muted-foreground: #737373;
-  --accent: #f5f5f5;
-  --accent-foreground: #343434;
+
+  /* Grey primitives (shared palette — same in light and dark) */
+  --primitive-grey-100: #ffffff;
+  --primitive-grey-200: #ecede8;
+  --primitive-grey-300: #d7d8d2;
+  --primitive-grey-400: #5a5e58;
+  --primitive-grey-500: #2f322d;
+  --primitive-grey-600: #0b0c0a;
+
+  /* Brand green primitives (shared — same in light and dark) */
+  --primitive-brand-green-100: #d6f9ce;
+  --primitive-brand-green-500: #9ee770;
+  --primitive-brand-green-700: #163300;
+
+  /* Primary button label/icon (light + dark) */
+  --button-solid-foreground: var(--primitive-brand-green-700);
+
+  /* Semantic tokens — light UI */
+  --background: var(--primitive-grey-100);
+  --foreground: var(--primitive-grey-600);
+  --card: var(--primitive-grey-100);
+  --card-foreground: var(--primitive-grey-600);
+  --popover: var(--primitive-grey-100);
+  --popover-foreground: var(--primitive-grey-600);
+  --primary: var(--primitive-brand-green-500);
+  --primary-foreground: var(--button-solid-foreground);
+  --secondary: var(--primitive-brand-green-100);
+  --secondary-foreground: var(--button-solid-foreground);
+  --muted: var(--primitive-grey-200);
+  --muted-foreground: var(--primitive-grey-400);
+  --accent: var(--primitive-grey-200);
+  --accent-foreground: var(--primitive-grey-600);
   --destructive: #dc2626;
-  --border: #e5e5e5;
-  --input: #e5e5e5;
-  --ring: #a3a3a3;
+  --border: var(--primitive-grey-300);
+  --input: var(--primitive-grey-300);
+  --ring: var(--primitive-grey-400);
   --chart-1: #e07c2e;
   --chart-2: #2a9d8f;
   --chart-3: #3d5a80;
   --chart-4: #e9c46a;
   --chart-5: #e76f51;
-  --sidebar: #fafafa;
-  --sidebar-foreground: #252525;
-  --sidebar-primary: #343434;
-  --sidebar-primary-foreground: #fafafa;
-  --sidebar-accent: #f5f5f5;
-  --sidebar-accent-foreground: #343434;
-  --sidebar-border: #e5e5e5;
-  --sidebar-ring: #a3a3a3;
+  --sidebar: var(--primitive-grey-200);
+  --sidebar-foreground: var(--primitive-grey-600);
+  --sidebar-primary: var(--primitive-grey-500);
+  --sidebar-primary-foreground: var(--primitive-grey-100);
+  --sidebar-accent: var(--primitive-grey-200);
+  --sidebar-accent-foreground: var(--primitive-grey-600);
+  --sidebar-border: var(--primitive-grey-300);
+  --sidebar-ring: var(--primitive-grey-400);
 }
 
 /* DESIGNER: Dark mode — add class "dark" to <html> to enable; these vars override :root in dark mode */
 .dark {
-  --background: #252525;
-  --foreground: #fafafa;
-  --card: #343434;
-  --card-foreground: #fafafa;
-  --popover: #343434;
-  --popover-foreground: #fafafa;
-  --primary: #ebebeb;
-  --primary-foreground: #252525;
-  --secondary: #454545;
-  --secondary-foreground: #fafafa;
-  --muted: #454545;
-  --muted-foreground: #a3a3a3;
-  --accent: #454545;
-  --accent-foreground: #fafafa;
+  /* Semantic tokens — dark UI (inverted / elevated greys) */
+  --background: var(--primitive-grey-600);
+  --foreground: var(--primitive-grey-100);
+  --card: var(--primitive-grey-500);
+  --card-foreground: var(--primitive-grey-100);
+  --popover: var(--primitive-grey-500);
+  --popover-foreground: var(--primitive-grey-100);
+  --primary: var(--primitive-brand-green-500);
+  --primary-foreground: var(--button-solid-foreground);
+  --secondary: var(--primitive-brand-green-700);
+  --secondary-foreground: var(--primitive-brand-green-500);
+  --muted: var(--primitive-grey-500);
+  --muted-foreground: var(--primitive-grey-300);
+  --accent: var(--primitive-grey-500);
+  --accent-foreground: var(--primitive-grey-100);
   --destructive: #ef4444;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.15);
-  --ring: #737373;
+  --border: color-mix(in srgb, var(--primitive-grey-100) 14%, transparent);
+  --input: color-mix(in srgb, var(--primitive-grey-100) 18%, transparent);
+  --ring: var(--primitive-grey-400);
   --chart-1: #6366f1;
   --chart-2: #2dd4bf;
   --chart-3: #e9c46a;
   --chart-4: #a78bfa;
   --chart-5: #f87171;
-  --sidebar: #252525;
-  --sidebar-foreground: #fafafa;
-  --sidebar-primary: #6366f1;
-  --sidebar-primary-foreground: #fafafa;
-  --sidebar-accent: #454545;
-  --sidebar-accent-foreground: #fafafa;
-  --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #737373;
+  --sidebar: var(--primitive-grey-600);
+  --sidebar-foreground: var(--primitive-grey-100);
+  --sidebar-primary: var(--primitive-grey-200);
+  --sidebar-primary-foreground: var(--primitive-grey-600);
+  --sidebar-accent: var(--primitive-grey-500);
+  --sidebar-accent-foreground: var(--primitive-grey-100);
+  --sidebar-border: color-mix(in srgb, var(--primitive-grey-100) 14%, transparent);
+  --sidebar-ring: var(--primitive-grey-400);
 }
 
 @layer base {
