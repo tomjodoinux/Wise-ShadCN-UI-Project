@@ -1,6 +1,5 @@
 "use client"
 
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,36 +14,37 @@ import { ChevronRight } from "lucide-react"
 
 /**
  * DESIGNER NOTE: Wise-style top header
- * — Left: sidebar trigger + WISE logo. Right: Earn CTA + user profile (avatar, name, dropdown).
+ * — Left: brand logo asset. Right: Earn CTA + user profile (avatar, name, dropdown).
  * — Restyle: edit button variants, avatar size, or add --wise-* CSS variables in globals.css.
  */
 export function AppHeader() {
   return (
-    <header className="shrink-0 border-b border-border bg-background">
+    <header className="mt-[64px] shrink-0 bg-background">
       <div className="mx-auto flex h-14 w-full max-w-[976px] items-center gap-4 px-6">
-        <SidebarTrigger className="-ml-1" />
-        {/* DESIGNER: Replace with your logo asset or SVG; Wise uses green "WISE" wordmark */}
-        <div className="flex items-center gap-2">
-          <span className="text-xl font-bold text-primary">WISE</span>
+        <div className="flex items-center">
+          <img src="/assets/logo.svg" alt="Wise logo" className="h-8 w-auto invisible" />
         </div>
         <div className="flex flex-1" />
         <div className="flex items-center gap-2">
           <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
             Earn €90
           </Button>
-          <DropdownMenu>
+          <DropdownMenu className="pr-4 pl-1.5 py-1.5">
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-2">
-                <Avatar className="size-8">
+                <Avatar className="size-12">
                   <AvatarImage src="" alt="Carolina Fernandes" />
-                  <AvatarFallback className="bg-muted text-muted-foreground text-xs">
+                  <AvatarFallback className="bg-muted text-muted-foreground text-md">
                     CF
                   </AvatarFallback>
                 </Avatar>
                 <span className="hidden text-sm font-medium sm:inline-block">
                   Carolina Fernandes
                 </span>
-                <ChevronRight className="size-4 text-muted-foreground" />
+                <ChevronRight
+                  className="size-[16px] shrink-0 text-brand-green-500"
+                  aria-hidden
+                />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
